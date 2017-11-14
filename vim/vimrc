@@ -1,0 +1,405 @@
+if has('vim_starting')
+	if &compatible
+		set nocompatible
+	endif
+	set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+filetype off
+
+" NeoBundle
+
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" general
+NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'vim-scripts/a.vim'
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'benjifisher/matchit.zip'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-speeddating'
+NeoBundle 'jistr/vim-nerdtree-tabs'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'SearchComplete'
+NeoBundle 'YankRing.vim'
+NeoBundle 'jpalardy/vim-slime'
+NeoBundle 'ack.vim'
+NeoBundle 'milkypostman/vim-togglelist'
+NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'fholgado/minibufexpl.vim'
+NeoBundle 'Chiel92/vim-autoformat'
+NeoBundle 'jceb/vim-orgmode'
+NeoBundle 'mattn/calendar-vim'
+NeoBundle 'vim-scripts/utl.vim'
+NeoBundle 'ralesi/office.vim'
+
+NeoBundle 'eagletmt/ghcmod-vim'
+NeoBundle 'ujihisa/neco-ghc'
+NeoBundle 'pbrisbin/html-template-syntax'
+
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'sgur/ctrlp-extensions.vim'
+
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gregsexton/gitv'
+
+" snipmate
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
+
+
+" latex and text editing
+NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
+NeoBundle 'LanguageTool'
+
+" Jinja
+NeoBundle 'Jinja'
+
+" C/C++
+NeoBundle 'brookhong/cscope.vim'
+NeoBundle 'w0rp/ale'
+
+" Java
+NeoBundle 'dansomething/vim-eclim'
+
+" Python
+NeoBundle 'klen/python-mode'
+
+
+call neobundle#end()
+
+
+" filetypes
+filetype plugin on
+filetype indent on
+set nu
+
+NeoBundleCheck
+
+" Set leader
+let maplocalleader = "\\"
+let mapleader = ','
+
+" no bells
+set noeb vb t_vb=
+au GUIEnter * set vb t_vb=
+
+" basic mappings
+nnoremap ; :
+
+map Y y$
+
+" conceal level
+set conceallevel=2
+
+" folding
+" set foldlevelstart=99
+
+" latex
+let g:tex_flavor='latex'
+let g:tex_conceal = 'admg'
+
+augroup latex
+                au!
+                " au BufWritePost *.tex Latexmk
+
+                au BufRead,BufNewFile *.tex map <silent> <Leader>ls :silent !okular --unique "<C-R>=LatexBox_GetOutputFile()<CR>"\#src:<C-R>=line('.')<CR>%:p<CR>
+                au BufRead,BufNewFile *.tex nmap <buffer> <F5> <Plug>LatexChangeEnv
+                au BufRead,BufNewFile *.tex vmap <buffer> <F7> <Plug>LatexWrapSelection
+                au BufRead,BufNewFile *.tex vmap <buffer> <S-F7> <Plug>LatexEnvWrapSelection
+                au BufRead,BufNewFile *.tex map <buffer> <Leader>lc :w !detex \| wc -w<CR>
+
+                au BufRead,BufNewFile *.tex set tabstop=2
+                au BufRead,BufNewFile *.tex set shiftwidth=2
+                au BufRead,BufNewFile *.tex set expandtab
+                au BufRead,BufNewFile *.tex set iskeyword+=:
+                au BufRead,BufNewFile *.tex set textwidth=89
+                "autocmd FileType tex let b:AutoClosePairs = AutoClose#DefaultPairsModified("| $", "")
+augroup end
+
+" no ~ files
+set nobackup
+
+" hidden buffers
+set hidden
+
+" scroll
+nnoremap <C-Down> <C-e>
+nnoremap <C-Up> <C-y>
+
+" buffer shuffling
+nnoremap <C-Left> :bp<CR>
+nnoremap <C-Right> :bn<CR>
+
+" tab navigation
+cabbrev td tabclose
+
+" visual navigation
+noremap j gj
+noremap k gk
+noremap gj j
+noremap gk k
+noremap <Down> gj
+noremap <Up> gk
+
+" window navigation
+noremap <C-h>  <C-w>h
+noremap <C-j>  <C-w>j
+noremap <C-k>  <C-w>k
+noremap <C-l>  <C-w>l
+
+" visual line ends
+noremap $ g$
+noremap g$ $
+noremap <End> g$
+
+" autochdir
+set autochdir
+
+" modeline
+set modeline
+set modelines=5
+
+" history
+set history=1000
+
+" git mappings
+map <Leader>gc :Gstatus<CR>
+map <Leader>gs :Gsplit 
+map <Leader>gb :Gblame<CR>
+map <Leader>gd :Gdiff 
+map <Leader>gt :Git tag 
+map <Leader>gf :Gitv!<CR>
+map <Leader>gv :Gitv<CR>
+
+" highlight search
+set hlsearch
+set incsearch
+map <Leader>/ :noh<CR>
+
+" ignorecase if lowercase
+set ignorecase
+set smartcase
+
+" show vim commands
+set showcmd
+
+" Better visual indents
+vnoremap < <gv
+vnoremap > >gv
+
+" Highlight trailing spaces and erase them while saving
+autocmd ColorScheme * highlight extraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" underscore keyword for code completion
+set iskeyword+=_
+
+" edits
+map <Leader>ev :e $MYVIMRC<CR>
+map <Leader>es :e ~/.vim/snippets/%:e.snippets<CR>
+map <Leader>et :e ~/todo/todo.txt<CR>
+
+" other mappings
+map <F1> <Esc>:w<CR>
+
+" minibufexplorer
+let g:miniBufExplorerAutoStart = 0
+map <F1> :MBEToggle<CR>
+nnoremap <C-Left> :MBEbb<CR>
+nnoremap <C-Right> :MBEbf<CR>
+
+" solarized
+syntax enable
+let base16colorspace=256
+set background=dark
+colorscheme base16-default-dark
+
+" NERDTree
+map <F2> :NERDTreeToggle<CR>
+
+" NERDCommenter
+let NERDSpaceDelims=1
+
+nmap <Leader>c :call NERDComment(0, 'invert')<CR>
+vmap <Leader>c :call NERDComment(1, 'invert')<CR>
+
+" syntastic
+let g:syntastic_mode_map = { 'mode': 'passive',
+                               \ 'active_filetypes': ['c'],
+                               \ 'passive_filetypes': [] }
+let g:syntastic_auto_loc_list=1
+map <Leader>sc :SyntasticCheck<CR>
+
+" status line
+set laststatus=2
+set showtabline=2
+
+" cursor line
+set cursorline
+
+" ctrlp
+let g:ctrlp_map='<Leader>p'
+let g:ctrlp_cmd = 'CtrlPLastMode'
+"let g:ctrlp_extensions = ['yankring']
+
+" powerline
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ }
+
+" yankring
+nnoremap <silent> <F3> :YRShow<CR>
+let g:yankring_history_dir= '~/tmp'
+
+" tagbar
+map <F4> :TagbarToggle<CR>
+
+let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
+
+let g:tagbar_type_tex = {
+    \ 'ctagstype' : 'latex',
+    \ 'kinds'     : [
+        \ 's:sections',
+        \ 'g:graphics:0:0',
+        \ 'l:labels',
+        \ 'r:refs:1:0',
+        \ 'p:pagerefs:1:0'
+    \ ],
+    \ 'sort'    : 0
+\ }
+
+set guifont=Inconsolata-dz\ for\ Powerline\ 12
+" wheel scrolling - http://vim.wikia.com/wiki/VimTip760
+nnoremap <C-ScrollWheelUp> :silent! let &guifont = substitute(
+    \ &guifont,
+    \ '\d\+',
+    \ '\=eval(submatch(0)+1)',
+    \ '')<CR><CR>
+nnoremap <C-ScrollWheelDown> :silent! let &guifont = substitute(
+    \ &guifont,
+    \ '\d\+',
+    \ '\=eval(submatch(0)-1)',
+    \ '')<CR><CR>
+
+" YouCompleteMe
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_autoclose_preview_window_after_insertion = 1
+au BufWritePost *.c,*.cpp,*.h YcmForceCompileAndDiagnostics
+let g:UltiSnipsExpandTrigger = "<c-space>"
+let g:ycm_filetype_blacklist = {'python' : 1}
+let g:ycm_filetype_specific_completion_to_disable = {'python' : 1}
+
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsListSnippets = '<c-b>'
+let g:snips_author = 'Tomasz Dwojak'
+let g:snips_email = 't.dwojak@amu.edu.pl'
+let g:snips_github = 'github.com/tomekd'
+
+" languagetool
+let g:languagetool_jar='/usr/share/java/languagetool/languagetool.jar'
+au FileType tex let g:languagetool_disable_rules='BRAK_SPACJI,COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LACZNIK_MYSLNIK,BRAK_KROPKI,DOUBLE_PUNCTUATION,SKROTY_Z_KROPKA,HYPER,LICZEBNIKI'
+
+" vim-slime
+let g:slime_target = "tmux"
+let g:slime_paste_file = "$HOME/tmp/.slime_paste"
+let g:slime_no_mappings = 1
+xmap <Leader>s <Plug>SlimeRegionSend
+nmap <Leader>s <Plug>SlimeParagraphSend
+nmap <Leader>l <Plug>SlimeLineSend
+
+" ack
+map <Leader>a :Ack 
+
+"
+" language-specific settings
+"
+
+" python settings
+let g:pymode = 1
+let g:pymode_rope = 1
+let g:pymode_options = 1
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+let g:pymode_indent = 1
+let g:pymode_lint_onfly = 1
+let g:pymode_lint_checker = "pyflakes,pep8,mccabe"
+let g:pymode_lint_cwindow = 1
+map <Leader>g :call RopeGotoDefinition()<CR>
+let ropevim_enable_shortcuts = 1
+let g:pymode_breakpoint = 0
+let g:pymode_syntax = 1
+let g:pymode_rope_completion = 1
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope_completion_bind = '<Tab>'
+let g:syntastic_disabled_filetypes=['python']
+let g:pymode_virtualenv = 1
+let g:pymode_folding = 1
+let g:pymode_lint_write = 1
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_print_as_function = 0
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+let g:pymode_syntax_string_formatting = g:pymode_syntax_all
+let g:pymode_syntax_string_format = g:pymode_syntax_all
+let g:pymode_syntax_string_templates = g:pymode_syntax_all
+let g:pymode_syntax_doctests = g:pymode_syntax_all
+let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
+let g:pymode_syntax_builtin_funcs = g:pymode_syntax_all
+let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
+let g:pymode_syntax_highlight_equal_operator = g:pymode_syntax_all
+let g:pymode_syntax_highlight_stars_operator = g:pymode_syntax_all
+let g:pymode_syntax_highlight_self = g:pymode_syntax_all
+let g:pymode_syntax_slow_sync = 0
+let g:pymode_run = 1
+let g:pymode_run_key = '<leader>r'
+let g:pymode_lint = 1
+let g:pymode_utils_whitespaces = 1
+let g:pymode_lint_message = 1
+let g:pymode_rope_autoimport = 1
+
+augroup python
+                au!
+                au BufRead,BufNewFile *.py,*.pyw set tabstop=4
+                au BufRead,BufNewFile *.py,*.pyw set shiftwidth=4
+                au BufRead,BufNewFile *.py,*.pyw set expandtab
+                au BufRead,BufNewFile *.py,*.pyw set softtabstop=4  "Insert 4 spaces when tab is pressed
+                au BufRead,BufNewFile *.py,*.pyw set smarttab       "Indent instead of tab at start of line
+                au BufRead,BufNewFile *.py,*.pyw set shiftround     "Round spaces to nearest shiftwidth multiple
+                au BufRead,BufNewFile *.py,*.pyw set colorcolumn=80 "Color last legal column
+
+augroup end
+
+" C/C++ settings
+augroup cpp
+                au!
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set tabstop=4
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set shiftwidth=4
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set expandtab
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set softtabstop=4  "Insert 4 spaces when tab is pressed
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set smarttab       "Indent instead of tab at start of line
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set shiftround     "Round spaces to nearest shiftwidth multiple
+augroup end
+
+" air-line
+let g:airline_powerline_fonts = 1
+let g:airline_theme='base16'
+let g:airline#extensions#tabline#enabled = 1
+
+" tab switch
+nnoremap <Tab> <ESC>:tabn<CR>
+nnoremap <S-Tab> <ESC>:tabp<CR>
