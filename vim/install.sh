@@ -7,4 +7,6 @@ cd ~/.vim
 ln -s ~/dots/vim/vimrc vimrc
 cd -
 
+mkdir -p ~/tmp
+
 pip install --user proselint
