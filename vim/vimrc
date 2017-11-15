@@ -42,8 +42,6 @@ NeoBundle 'mattn/calendar-vim'
 NeoBundle 'vim-scripts/utl.vim'
 NeoBundle 'ralesi/office.vim'
 
-NeoBundle 'eagletmt/ghcmod-vim'
-NeoBundle 'ujihisa/neco-ghc'
 NeoBundle 'pbrisbin/html-template-syntax'
 
 NeoBundle 'kien/ctrlp.vim'
