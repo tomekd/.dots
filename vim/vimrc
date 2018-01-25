@@ -385,12 +385,13 @@ augroup end
 " C/C++ settings
 augroup cpp
                 au!
-                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set tabstop=4
-                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set shiftwidth=4
-                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set expandtab
-                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set softtabstop=4  "Insert 4 spaces when tab is pressed
-                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set smarttab       "Indent instead of tab at start of line
-                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp set shiftround     "Round spaces to nearest shiftwidth multiple
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set tabstop=2
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set shiftwidth=2
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set expandtab
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set softtabstop=2  "Insert 4 spaces when tab is pressed
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set smarttab       "Indent instead of tab at start of line
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set shiftround     "Round spaces to nearest shiftwidth multiple
+                au BufRead,BufNewFile *.py,*.pyw set colorcolumn=80 "Color last legal column
 augroup end
 
 " air-line
