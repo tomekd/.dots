@@ -2,4 +2,4 @@
 
 mkdir -p ~/.config/termite
 cd ~/.config/termite
-ln -s ~/dots/termite/config .
+ln -s ~/.dots/termite/config .
