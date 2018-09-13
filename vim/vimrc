@@ -1,87 +1,77 @@
-if has('vim_starting')
-	if &compatible
-		set nocompatible
-	endif
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
 
+" Autoinstall Plug if it does not present
+if empty(glob('~/.vim/autoload/plug.vim'))
+	  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+	      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+
+set nocompatible
 filetype off
 
-" NeoBundle
 
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-NeoBundleFetch 'Shougo/neobundle.vim'
+call plug#begin('~/.vim/plugged')
 
 " general
-NeoBundle 'chriskempson/base16-vim'
-NeoBundle 'vim-scripts/a.vim'
-NeoBundle 'octol/vim-cpp-enhanced-highlight'
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundle 'benjifisher/matchit.zip'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-speeddating'
-NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'Shougo/vimproc'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'SearchComplete'
-NeoBundle 'YankRing.vim'
-NeoBundle 'jpalardy/vim-slime'
-NeoBundle 'ack.vim'
-NeoBundle 'milkypostman/vim-togglelist'
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'fholgado/minibufexpl.vim'
-NeoBundle 'Chiel92/vim-autoformat'
-NeoBundle 'jceb/vim-orgmode'
-NeoBundle 'mattn/calendar-vim'
-NeoBundle 'vim-scripts/utl.vim'
-NeoBundle 'ralesi/office.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'vim-scripts/a.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'benjifisher/matchit.zip'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Shougo/vimproc'
+Plug 'scrooloose/nerdtree'
+Plug 'majutsushi/tagbar'
+Plug 'jpalardy/vim-slime'
+Plug 'milkypostman/vim-togglelist'
+Plug 'Valloric/YouCompleteMe'
+Plug 'Raimondi/delimitMate'
+Plug 'fholgado/minibufexpl.vim'
+Plug 'Chiel92/vim-autoformat'
+Plug 'jceb/vim-orgmode'
+Plug 'mattn/calendar-vim'
+Plug 'vim-scripts/utl.vim'
+Plug 'ralesi/office.vim'
 
-NeoBundle 'pbrisbin/html-template-syntax'
+Plug 'pbrisbin/html-template-syntax'
 
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'sgur/ctrlp-extensions.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'sgur/ctrlp-extensions.vim'
 
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
 
 " snipmate
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 
 " latex and text editing
-NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
-NeoBundle 'LanguageTool'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
 
 " YAML
-NeoBundle 'avakhov/vim-yaml'
-
-" Jinja
-NeoBundle 'Jinja'
+Plug 'avakhov/vim-yaml'
 
 " C/C++
-NeoBundle 'brookhong/cscope.vim'
-NeoBundle 'w0rp/ale'
+Plug 'brookhong/cscope.vim'
+Plug 'w0rp/ale'
 
 " Python
-NeoBundle 'klen/python-mode'
+Plug 'klen/python-mode'
 
 
-call neobundle#end()
+call plug#end()
 
 
 " filetypes
 filetype plugin on
 filetype indent on
 set nu
-
-NeoBundleCheck
 
 " Set leader
 let maplocalleader = "\\"
