@@ -59,15 +59,15 @@ NeoBundle 'honza/vim-snippets'
 NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
 NeoBundle 'LanguageTool'
 
+" YAML
+NeoBundle 'avakhov/vim-yaml'
+
 " Jinja
 NeoBundle 'Jinja'
 
 " C/C++
 NeoBundle 'brookhong/cscope.vim'
 NeoBundle 'w0rp/ale'
-
-" Java
-NeoBundle 'dansomething/vim-eclim'
 
 " Python
 NeoBundle 'klen/python-mode'
@@ -120,7 +120,7 @@ augroup latex
                 au BufRead,BufNewFile *.tex set shiftwidth=2
                 au BufRead,BufNewFile *.tex set expandtab
                 au BufRead,BufNewFile *.tex set iskeyword+=:
-                au BufRead,BufNewFile *.tex set textwidth=89
+                " au BufRead,BufNewFile *.tex set textwidth=89
                 "autocmd FileType tex let b:AutoClosePairs = AutoClose#DefaultPairsModified("| $", "")
 augroup end
 
@@ -161,7 +161,7 @@ noremap g$ $
 noremap <End> g$
 
 " autochdir
-set autochdir
+" set autochdir
 
 " modeline
 set modeline
@@ -205,7 +205,7 @@ set iskeyword+=_
 " edits
 map <Leader>ev :e $MYVIMRC<CR>
 map <Leader>es :e ~/.vim/snippets/%:e.snippets<CR>
-map <Leader>et :e ~/todo/todo.txt<CR>
+map <Leader>et :e ~/todo/todo.org<CR>
 
 " other mappings
 map <F1> <Esc>:w<CR>
@@ -391,7 +391,7 @@ augroup cpp
                 au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set softtabstop=2  "Insert 4 spaces when tab is pressed
                 au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set smarttab       "Indent instead of tab at start of line
                 au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set shiftround     "Round spaces to nearest shiftwidth multiple
-                au BufRead,BufNewFile *.py,*.pyw set colorcolumn=80 "Color last legal column
+                au BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp,*.cu set colorcolumn=80 "Color last legal column
 augroup end
 
 " air-line
