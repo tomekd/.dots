@@ -8,6 +8,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 
 set nocompatible
 filetype off
+set re=1
 
 
 call plug#begin('~/.vim/plugged')
@@ -22,10 +23,10 @@ Plug 'benjifisher/matchit.zip'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
-Plug 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Shougo/vimproc'
-Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'jpalardy/vim-slime'
 Plug 'milkypostman/vim-togglelist'
@@ -62,10 +63,14 @@ Plug 'brookhong/cscope.vim'
 Plug 'w0rp/ale'
 
 " Python
-Plug 'klen/python-mode'
+Plug 'vim-python/python-syntax'
+Plug 'ryanoasis/vim-devicons'
 
 
 call plug#end()
+
+set encoding=utf8
+autocmd FileType nerdtree setlocal nolist 
 
 
 " filetypes
@@ -87,7 +92,7 @@ nnoremap ; :
 map Y y$
 
 " conceal level
-set conceallevel=2
+" set conceallevel=2
 
 " folding
 " set foldlevelstart=99
@@ -211,6 +216,8 @@ syntax enable
 let base16colorspace=256
 set background=dark
 colorscheme base16-default-dark
+let python_highlight_all=1
+syntax on
 
 " NERDTree
 map <F2> :NERDTreeToggle<CR>
@@ -220,13 +227,6 @@ let NERDSpaceDelims=1
 
 nmap <Leader>c :call NERDComment(0, 'invert')<CR>
 vmap <Leader>c :call NERDComment(1, 'invert')<CR>
-
-" syntastic
-let g:syntastic_mode_map = { 'mode': 'passive',
-                               \ 'active_filetypes': ['c'],
-                               \ 'passive_filetypes': [] }
-let g:syntastic_auto_loc_list=1
-map <Leader>sc :SyntasticCheck<CR>
 
 " status line
 set laststatus=2
@@ -241,7 +241,6 @@ let g:ctrlp_cmd = 'CtrlPLastMode'
 "let g:ctrlp_extensions = ['yankring']
 
 " powerline
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ }
@@ -268,7 +267,7 @@ let g:tagbar_type_tex = {
     \ 'sort'    : 0
 \ }
 
-set guifont=Inconsolata-dz\ for\ Powerline\ 12
+set guifont=Inconsolata\ Nerd\ Font\ Complete\ Mono\ 10
 " wheel scrolling - http://vim.wikia.com/wiki/VimTip760
 nnoremap <C-ScrollWheelUp> :silent! let &guifont = substitute(
     \ &guifont,
@@ -286,8 +285,8 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_autoclose_preview_window_after_insertion = 1
 au BufWritePost *.c,*.cpp,*.h YcmForceCompileAndDiagnostics
 let g:UltiSnipsExpandTrigger = "<c-space>"
-let g:ycm_filetype_blacklist = {'python' : 1}
-let g:ycm_filetype_specific_completion_to_disable = {'python' : 1}
+" let g:ycm_filetype_blacklist = {'python' : 1}
+" let g:ycm_filetype_specific_completion_to_disable = {'python' : 1}
 
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
@@ -296,10 +295,6 @@ let g:UltiSnipsListSnippets = '<c-b>'
 let g:snips_author = 'Tomasz Dwojak'
 let g:snips_email = 't.dwojak@amu.edu.pl'
 let g:snips_github = 'github.com/tomekd'
-
-" languagetool
-let g:languagetool_jar='/usr/share/java/languagetool/languagetool.jar'
-au FileType tex let g:languagetool_disable_rules='BRAK_SPACJI,COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LACZNIK_MYSLNIK,BRAK_KROPKI,DOUBLE_PUNCTUATION,SKROTY_Z_KROPKA,HYPER,LICZEBNIKI'
 
 " vim-slime
 let g:slime_target = "tmux"
@@ -317,48 +312,7 @@ map <Leader>a :Ack
 "
 
 " python settings
-let g:pymode = 1
-let g:pymode_rope = 1
-let g:pymode_options = 1
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-let g:pymode_indent = 1
-let g:pymode_lint_onfly = 1
-let g:pymode_lint_checker = "pyflakes,pep8,mccabe"
-let g:pymode_lint_cwindow = 1
-map <Leader>g :call RopeGotoDefinition()<CR>
-let ropevim_enable_shortcuts = 1
-let g:pymode_breakpoint = 0
-let g:pymode_syntax = 1
-let g:pymode_rope_completion = 1
-let g:pymode_rope_lookup_project = 0
-let g:pymode_rope_completion_bind = '<Tab>'
-let g:syntastic_disabled_filetypes=['python']
-let g:pymode_virtualenv = 1
-let g:pymode_folding = 1
-let g:pymode_lint_write = 1
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_print_as_function = 0
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-let g:pymode_syntax_string_formatting = g:pymode_syntax_all
-let g:pymode_syntax_string_format = g:pymode_syntax_all
-let g:pymode_syntax_string_templates = g:pymode_syntax_all
-let g:pymode_syntax_doctests = g:pymode_syntax_all
-let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
-let g:pymode_syntax_builtin_funcs = g:pymode_syntax_all
-let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
-let g:pymode_syntax_highlight_equal_operator = g:pymode_syntax_all
-let g:pymode_syntax_highlight_stars_operator = g:pymode_syntax_all
-let g:pymode_syntax_highlight_self = g:pymode_syntax_all
-let g:pymode_syntax_slow_sync = 0
-let g:pymode_run = 1
-let g:pymode_run_key = '<leader>r'
-let g:pymode_lint = 1
-let g:pymode_utils_whitespaces = 1
-let g:pymode_lint_message = 1
-let g:pymode_rope_autoimport = 1
+autocmd FileType python map <buffer> <c-]> :YcmCompleter GoToDefinition<CR>
 
 augroup python
                 au!
@@ -388,6 +342,11 @@ augroup end
 let g:airline_powerline_fonts = 1
 let g:airline_theme='base16'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_sign_error = "◉"
+let g:ale_sign_warning = "◉"
+highlight ALEErrorSign ctermfg=9 ctermbg=18 guifg=#C30500 guibg=#F5F5F5
+highlight ALEWarningSign ctermfg=11 ctermbg=18 guifg=#ED6237 guibg=#F5F5F5
 
 " tab switch
 nnoremap <Tab> <ESC>:tabn<CR>
